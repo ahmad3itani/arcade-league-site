@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A challenge on Arcade League</title>
+<meta name="description" content="Someone has challenged you to a head-to-head run on Arcade League. Same level, one attempt each.">
+<meta property="og:title" content="You've been challenged">
+<meta property="og:description" content="Same level, one attempt each. Beat their score and you get both entries.">
+<meta property="og:image" content="icon.png">
+<link rel="icon" href="icon.png">
+<style>
+  :root { --ink:#1B1233; --raised:#2A1F4A; --cream:#FFF6E9; --dim:rgba(255,246,233,.68); --amber:#FFB03A; --violet:#7C5CFF; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--ink); color:var(--cream); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+         min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+  .card { width:100%; max-width:420px; background:var(--raised); border-radius:24px; padding:28px; text-align:center; }
+  img { width:72px; height:72px; border-radius:18px; }
+  h1 { font-size:28px; line-height:1.15; margin:16px 0 8px; }
+  p { color:var(--dim); margin:0 0 18px; font-size:15px; }
+  a.btn { display:block; background:var(--violet); color:var(--cream); text-decoration:none; font-weight:700;
+          padding:15px 24px; border-radius:999px; margin-bottom:10px; }
+  a.ghost { display:block; color:var(--dim); text-decoration:underline; font-size:14px; padding:8px; }
+  .fine { font-size:13px; margin:16px 0 0; }
+</style>
+</head>
+<body>
+<div class="card">
+  <img src="icon.png" alt="">
+  <h1>You've been challenged</h1>
+  <p>Same level, one attempt each. Beat their score and you get both entries — coins only, never cash, and they can't be bought.</p>
+  <a class="btn" id="open" href="#">Open in Arcade League</a>
+  <a class="ghost" id="get" href="index.html">Don't have the app yet?</a>
+  <p class="fine" id="missing" hidden>That link is missing its challenge id — ask your friend to send it again.</p>
+</div>
+<script>
+  // The duel id never leaves this page: it only builds the app link.
+  var id = new URLSearchParams(location.search).get('d') || '';
+  var valid = /^[0-9a-fA-F-]{36}$/.test(id);
+  var open = document.getElementById('open');
+  if (valid) {
+    open.href = 'arcadeleague://duel/' + encodeURIComponent(id);
+  } else {
+    open.hidden = true;
+    document.getElementById('missing').hidden = false;
+  }
+</script>
+</body>
+</html>
